@@ -43,6 +43,23 @@ public class ProductController {
 
     }
 
+    @GetMapping("/productname")
+    List<Product> getProductByName(@RequestParam(name = "name") String name, @RequestParam(name = "spec") String spec) {
+//        String name = "cookies";
+        return productRepository.findByNameAndSpec(name, spec);
+    }
+
+    @GetMapping("/orderedproducts")
+    List<Product> getProductOrderByName() {
+        return productRepository.findAllByOrderName();
+    }
+
+    @GetMapping("/productnames")
+    List<Integer> getProductNames(@RequestParam(name = "name") String name) {
+        return productRepository.findByNameParam(name);
+    }
+
+
     @DeleteMapping("/product/{id}")
     String deleteProduct(@PathVariable Long id) throws Exception{
         Optional<Product> product = productRepository.findById(id);
